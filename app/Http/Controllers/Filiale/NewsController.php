@@ -11,9 +11,11 @@ use Inertia\Inertia;
 
 class NewsController extends Controller
 {
-    public function index($filialeId) {
+    public function index($filiale) {
+        $filiale = strtoupper($filiale);
+        
         /** @var Filiale */
-        $filiale = Filiale::where('filiale_id', $filialeId);
+        $filiale = Filiale::first('name', $filiale);
 
         $news = $filiale->relatedNews();
 

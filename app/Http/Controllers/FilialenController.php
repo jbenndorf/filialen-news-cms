@@ -16,9 +16,11 @@ class FilialenController extends Controller
         ]);
     }
 
-    public function show($filialeId)
+    public function show($filiale)
     {
-        $filiale = Filiale::findOrFail($filialeId);
+        $filiale = strtoupper($filiale);
+
+        $filiale = Filiale::where('name', $filiale)->first();
 
         return Inertia::render('Filiale/Show', [
             'filiale' => $filiale
