@@ -10,4 +10,9 @@ class News extends Model
     use HasFactory;
 
     protected $fillable = ['title', 'description', 'image_url'];
+
+    public function relatedFiliale()
+    {
+        return $this->belongsTo(Filiale::class);
+    }
 }
