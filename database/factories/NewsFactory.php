@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Filiale;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,10 @@ class NewsFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => fake()->title(),
+            'description' => fake()->text(70),
+            'image_url' => fake()->imageUrl(),
+            'fialiale_id' => Filiale::factory()->create()
         ];
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Filiale;
 use Illuminate\Database\Seeder;
 
 class FilialenSeeder extends Seeder
@@ -12,6 +12,12 @@ class FilialenSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Filiale::factory()->sequence([
+            ['name' => 'Nord'],
+            ['name' => 'Süd'],
+            ['name' => 'Ost'],
+            ['name' => 'West'],
+            ['name' => 'Mitte'],
+        ])->create();
     }
 }
