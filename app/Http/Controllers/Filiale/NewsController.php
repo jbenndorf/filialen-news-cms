@@ -12,26 +12,33 @@ use Inertia\Inertia;
 class NewsController extends Controller
 {
     public function index($filiale) {
-        $filiale = strtoupper($filiale);
-        
+        $filiale = ucfirst($filiale);
+
         /** @var Filiale */
-        $filiale = Filiale::first('name', $filiale);
+        $filiale = Filiale::where('name', $filiale)->first();
 
         $news = $filiale->relatedNews();
 
-        return Inertia::render('News/Show', [
-            'filiale' => $filiale,
+        return Inertia::render('News/Index', [
+            'selectedFiliale' => $filiale,
+            'filialen' => Filiale::all(),
             'news' => $news
         ]);
     }
 
-    public function show($filialeId, $newsId) {
+    public function show($filiale, $newsId) {
+
+        $filiale = ucfirst($filiale);
+
+        /** @var Filiale */
+        $filiale = Filiale::where('name', $filiale)->first();
 
         /** @var News */
-        $news = News::where('filiale_id', $filialeId)->findOrFail($newsId);
+        $news = News::where('filiale_id', $filiale->id)->findOrFail($newsId);
 
         return Inertia::render('News/Show', [
-            'filiale' => $filialeId,
+            'selectedFiliale' => $filiale,
+            'filialen' => Filiale::all(),
             'news' => $news,
         ]);
     }

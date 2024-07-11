@@ -18,12 +18,13 @@ class FilialenController extends Controller
 
     public function show($filiale)
     {
-        $filiale = strtoupper($filiale);
+        $filiale = ucfirst($filiale);
 
         $filiale = Filiale::where('name', $filiale)->first();
 
         return Inertia::render('Filiale/Show', [
-            'filiale' => $filiale
+            'selectedFiliale' => $filiale,
+            'filialen' => Filiale::all()
         ]);
     }
 }

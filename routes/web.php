@@ -3,22 +3,11 @@
 use App\Http\Controllers\Filiale\NewsController;
 use App\Http\Controllers\FilialenController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return redirect('/filialen');
 });
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -28,9 +17,9 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::group(['prefix' => '/filialen'], function() {
-        Route::get('/', [FilialenController::class, 'index'])->name('filiale.index');
+        Route::get('/', [FilialenController::class, 'index'])->name('filialen.index');
 
-        Route::get('/{filiale}', [FilialenController::class, 'show'])->name('filiale.show');
+        Route::get('/{filiale}', [FilialenController::class, 'show'])->name('filialen.show');
         Route::get('/{filiale}/news', [NewsController::class, 'index'])->name('news.index');
         Route::get('/{filiale}/news/{news}', [NewsController::class, 'show'])->name('news.show');
     });
