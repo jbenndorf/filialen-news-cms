@@ -9,6 +9,8 @@ class Filiale extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name'];
+
     public function relatedNews()
     {
         return $this->hasMany(News::class);
