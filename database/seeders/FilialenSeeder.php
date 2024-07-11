@@ -12,12 +12,16 @@ class FilialenSeeder extends Seeder
      */
     public function run(): void
     {
-        Filiale::factory()->sequence([
+        $filialen = collect([
             ['name' => 'Nord'],
             ['name' => 'Süd'],
             ['name' => 'Ost'],
             ['name' => 'West'],
-            ['name' => 'Mitte'],
-        ])->create();
+            ['name' => 'Mitte']
+        ]);
+
+        $filialen->each(function (array $filiale) {
+            Filiale::factory()->create($filiale);
+        });
     }
 }
