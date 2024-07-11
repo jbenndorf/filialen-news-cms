@@ -22,6 +22,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/{filiale}', [FilialenController::class, 'show'])->name('filialen.show');
         Route::get('/{filiale}/news', [NewsController::class, 'index'])->name('news.index');
         Route::get('/{filiale}/news/{news}', [NewsController::class, 'show'])->name('news.show');
+
+        Route::post('/{filiale}/news', [NewsController::class, 'store'])->name('news.store');
     });
 });
 

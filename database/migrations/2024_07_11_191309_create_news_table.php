@@ -17,7 +17,7 @@ return new class extends Migration
 
             $table->string('title', 50);
             $table->text('description', 100);
-            $table->string('image_url');
+            $table->string('image_url')->nullable();
 
             $table->integer('filiale_id')->unsigned();
             $table->foreign('filiale_id')->references('id')->on('filialen');
