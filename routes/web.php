@@ -26,13 +26,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::group(['prefix' => '/filialen'], function() {
-    Route::get('/', [FilialenController::class, 'index'])->name('filiale.index');
-    Route::get('/{filiale}', [FilialenController::class, 'show'])->name('filiale.show');
+Route::middleware('auth')->group(function () {
+    Route::group(['prefix' => '/filialen'], function() {
+        Route::get('/', [FilialenController::class, 'index'])->name('filiale.index');
 
-    Route::group(['prefix' => '/news'], function() {
-        Route::get('/', [NewsController::class, 'index'])->name('news.index');
-        Route::get('/{news}', [NewsController::class, 'show'])->name('news.show');
+        Route::get('/{filiale}', [FilialenController::class, 'show'])->name('filiale.show');
+        Route::get('/{filiale}/news', [NewsController::class, 'index'])->name('news.index');
+        Route::get('/{filiale}/news/{news}', [NewsController::class, 'show'])->name('news.show');
     });
 });
 
