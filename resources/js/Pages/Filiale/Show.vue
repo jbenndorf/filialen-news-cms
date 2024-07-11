@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+    <div class="mx-auto py-10 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
             <div class="flex items-center justify-between">
                 <h1 class="text-xl font-semibold text-gray-800">{{ selectedFiliale.name }}</h1>
