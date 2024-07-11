@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Filiale\NewsController;
+use App\Http\Controllers\FilialenController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -26,11 +27,12 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::group(['prefix' => '/filialen'], function() {
-    Route::get('/', [FilialenController, 'index'])->name('index');
-    Route::get('/{filiale}', [FilialenController, 'show'])->name('filiale.show');
+    Route::get('/', [FilialenController::class, 'index'])->name('filiale.index');
+    Route::get('/{filiale}', [FilialenController::class, 'show'])->name('filiale.show');
 
     Route::group(['prefix' => '/news'], function() {
-        Route::get('/{news}', [NewsController, 'show'])->name('news.show');
+        Route::get('/', [NewsController::class, 'index'])->name('news.index');
+        Route::get('/{news}', [NewsController::class, 'show'])->name('news.show');
     });
 });
 
