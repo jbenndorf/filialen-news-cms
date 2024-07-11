@@ -9,6 +9,8 @@ class Filiale extends Model
 {
     use HasFactory;
 
+    protected $table = 'filialen';
+
     protected $fillable = ['name'];
 
     public function relatedNews()
