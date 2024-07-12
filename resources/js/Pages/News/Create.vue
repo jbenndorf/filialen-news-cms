@@ -1,17 +1,22 @@
 <template>
-  <div class="bg-gray p-6">
+  <div class="dandelion-light rounded p-6 shadow">
     <form @submit.prevent="submit">
             <div class="mb-4">
                 <label class="block text-gray-700">Überschrift</label>
-                <input v-model="form.title" type="text" class="mt-1 block w-full" />
+                <input type="text" class="w-full" v-model="form.title">
+                <InputError class="mt-2" :message="form.errors.title" />
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700">Beschreibung</label>
-                <textarea v-model="form.description" class="mt-1 block w-full"></textarea>
+                <textarea type="text" class="w-full" v-model="form.description"/>
+                <InputError class="mt-2" :message="form.errors.description" />
+            </div>
+            <div v-if="form.errors.general">
+                <InputError class="mt-2" :message="form.errors.general" />
             </div>
             <div class="flex justify-end">
                 <button type="button" @click="$emit('close')" class="mr-4">Abbrechen</button>
-                <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded">Erstellen</button>
+                <PrimaryButton type="submit" class="bg-gray-400">Erstellen</PrimaryButton>
             </div>
         </form>
   </div>
@@ -19,10 +24,12 @@
 
 <script>
 import { useForm } from '@inertiajs/vue3';
+import InputError from '@/Components/InputError.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 export default {
     props: {
-        selectedFiliale: Object,
+        filiale: Object
     },
     setup(props, { emit }) {
         const form = useForm({
@@ -31,7 +38,7 @@ export default {
         });
 
         const submit = () => {
-            form.post(route('news.store', { filiale: props.selectedFiliale.name }), {
+            form.post(route('news.store', props.filiale.id), {
                 onSuccess: () => {
                     form.reset();
                     emit('close');
@@ -43,6 +50,7 @@ export default {
             form,
             submit
         };
-    }
+    },
+    components: { InputError, PrimaryButton }
 }
 </script>

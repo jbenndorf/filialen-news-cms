@@ -16,15 +16,13 @@ class FilialenController extends Controller
         ]);
     }
 
-    public function show($filiale)
+    public function show($filialeId)
     {
-        $filiale = ucfirst($filiale);
-
-        $filiale = Filiale::where('name', $filiale)->first();
-
+        /** @var Filiale */
+        $filiale = Filiale::findOrFail($filialeId);
+        
         return Inertia::render('Filiale/Show', [
-            'selectedFiliale' => $filiale,
-            'filialen' => Filiale::all()
+            'filiale' => $filiale
         ]);
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect('/filialen');
-});
+})->name('index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -19,11 +19,9 @@ Route::middleware('auth')->group(function () {
     Route::group(['prefix' => '/filialen'], function() {
         Route::get('/', [FilialenController::class, 'index'])->name('filialen.index');
 
-        Route::get('/{filiale}', [FilialenController::class, 'show'])->name('filialen.show');
-        Route::get('/{filiale}/news', [NewsController::class, 'index'])->name('news.index');
-        Route::get('/{filiale}/news/{news}', [NewsController::class, 'show'])->name('news.show');
-
-        Route::post('/{filiale}/news', [NewsController::class, 'store'])->name('news.store');
+        Route::get('/{filialeId}', [FilialenController::class, 'show'])->name('filialen.show');
+        Route::get('/{filialeId}/news', [NewsController::class, 'index'])->name('news.index');
+        Route::post('/{filialeId}/news', [NewsController::class, 'store'])->name('news.store');
     });
 });
 

@@ -10,17 +10,16 @@ use Inertia\Inertia;
 
 class NewsController extends Controller
 {
-    public function index($filiale) {
-        $filiale = ucfirst($filiale);
+    public function index($filialeId)
+    {
 
         /** @var Filiale */
-        $filiale = Filiale::where('name', $filiale)->first();
+        $filiale = Filiale::findOrFail($filialeId);
 
         $news = $filiale->relatedNews;
 
         return Inertia::render('News/Index', [
-            'selectedFiliale' => $filiale,
-            'filialen' => Filiale::all(),
+            'filiale' => $filiale,
             'news' => $news
         ]);
     }
@@ -30,15 +29,13 @@ class NewsController extends Controller
         return Inertia::render('News/Create');
     }
 
-    public function store($filiale)
+    public function store($filialeId)
     {
-        $filiale = ucfirst($filiale);
-
         /** @var Filiale */
-        $filiale = Filiale::where('name', $filiale)->first();
+        $filiale = Filiale::findOrFail($filialeId);
 
         if ($filiale->relatedNews()->count() >= 3) {
-            return Redirect::route('news.index', [$filiale->name])->withErrors('Diese Filiale kann maximal drei News haben.');
+            return Redirect::route('news.index', [$filiale->id])->withErrors(['general' => 'Diese Filiale kann maximal drei News haben.']);
         }
 
         $validatedData = Request::validate([
@@ -53,6 +50,6 @@ class NewsController extends Controller
             'image' => $validatedData['image'] ?? null,
         ]);
 
-        return Redirect::route('news.index', [$filiale->name])->with('success', 'News wurden erfolgreich erstellt.');
+        return Redirect::route('news.index', [$filiale->id])->with('success', 'News wurden erfolgreich erstellt.');
     }
 }

@@ -1,7 +1,16 @@
 <template>
-  <div class="title-container">
-    <h1 class="title">Wilkommen zu ihrem News CMS! <br> Bitte wählen eine Filiale um News zu bearbeiten.</h1>
-  </div>
+    <div class="mx-auto py-10 lg:px-8">
+        <div class="dandelion overflow-hidden shadow-xl sm:rounded-lg p-6">
+          <h1 class="text-xl font-semibold text-gray-800">
+            Wilkommen zu ihrem News CMS!
+          </h1>
+          <div class="mt-6">
+            <p class="text-lg text-gray-700">
+              Bitte wählen Sie eine Filiale aus.
+            </p>
+          </div>
+        </div>
+    </div>
 </template>
   
 <script>
@@ -10,23 +19,11 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import NavLink from '@/Components/NavLink.vue';
 
 export default {
-components: {
-    Head,
-    NavLink
-},
-layout: AuthenticatedLayout,
-props: {
-    filialen: Array
-}
-}
-</script>
+    components: {      
+      Head,
+      NavLink
+    },
 
-<style>
-  .title-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 10vh;
-    background-color: #f0f0f0;
-}
-</style>
+    layout: AuthenticatedLayout
+    }
+</script>
